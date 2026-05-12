@@ -21,14 +21,14 @@
 
     <form method="post" action="${pageContext.request.contextPath}/auth/login" class="space-y-4">
         <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1" for="username">Nom d'utilisateur</label>
-            <input id="username" name="username" required
+            <label class="block text-sm font-medium text-slate-700 mb-1" for="identifier">Email</label>
+                 <input id="identifier" name="identifier" required value="demo@doknou.com"
                    class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-slate-500 focus:outline-none"
                    type="text">
         </div>
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1" for="password">Mot de passe</label>
-            <input id="password" name="password" required
+                 <input id="password" name="password" required value="admin123"
                    class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-slate-500 focus:outline-none"
                    type="password">
         </div>

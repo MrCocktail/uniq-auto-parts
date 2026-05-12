@@ -26,6 +26,9 @@ public class Client {
     @Column(length = 100)
     private String prenom;
 
+    @Column(length = 20)
+    private String sexe;
+
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
@@ -67,6 +70,14 @@ public class Client {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
     }
 
     public String getEmail() {

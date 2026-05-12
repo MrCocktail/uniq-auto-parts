@@ -6,54 +6,77 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "employe")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "RefEmploye")
+    private Long refEmploye;
 
-    @Column(nullable = false, unique = true, length = 80)
-    private String username;
+    @Column(name = "Prenom")
+    private String prenom;
 
-    @Column(nullable = false, unique = true, length = 150)
+    @Column(name = "Nom")
+    private String nom;
+
+    @Column(name = "Phone")
+    private String phone;
+
+    @Column(name = "Salaire")
+    private BigDecimal salaire;
+
+    @Column(name = "Email", nullable = false, unique = true, length = 150)
     private String email;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "MotDePasseHash", nullable = false, length = 255)
     private String passwordHash;
 
-    @Column(nullable = false, length = 20)
-    private String role;
-
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
-    private boolean active;
-
     public Employee() {
-        this.createdAt = LocalDateTime.now();
-        this.active = true;
-        this.role = "VENDEUR";
     }
 
-    public Long getId() {
-        return id;
+    public Long getRefEmploye() {
+        return refEmploye;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRefEmploye(Long refEmploye) {
+        this.refEmploye = refEmploye;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public BigDecimal getSalaire() {
+        return salaire;
+    }
+
+    public void setSalaire(BigDecimal salaire) {
+        this.salaire = salaire;
     }
 
     public String getEmail() {
@@ -70,29 +93,5 @@ public class Employee {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }

@@ -11,32 +11,33 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "customer_order_lines")
+@Table(name = "ligne_vente")
 public class CustomerOrderLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Ref_Detail")
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "RefVente")
     private CustomerOrder order;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "piece_id", nullable = false)
+    @JoinColumn(name = "RefPiece")
     private Piece piece;
 
-    @Column(nullable = false)
+    @Column(name = "Qte")
     private Integer quantite;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal prixUnitaire;
+    @Column(name = "Montant", precision = 12, scale = 2)
+    private BigDecimal montant;
 
     public CustomerOrderLine() {
     }
 
     public BigDecimal getLineTotal() {
-        return prixUnitaire.multiply(BigDecimal.valueOf(quantite));
+        return montant == null ? BigDecimal.ZERO : montant;
     }
 
     public Long getId() {
@@ -71,11 +72,11 @@ public class CustomerOrderLine {
         this.quantite = quantite;
     }
 
-    public BigDecimal getPrixUnitaire() {
-        return prixUnitaire;
+    public BigDecimal getMontant() {
+        return montant;
     }
 
-    public void setPrixUnitaire(BigDecimal prixUnitaire) {
-        this.prixUnitaire = prixUnitaire;
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
     }
 }

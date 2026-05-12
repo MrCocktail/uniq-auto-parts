@@ -47,10 +47,10 @@ public class AuthServlet extends HttpServlet {
     }
 
     private void handleLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
+        String identifier = req.getParameter("identifier");
         String password = req.getParameter("password");
 
-        Employee employee = authService.login(username, password);
+        Employee employee = authService.login(identifier, password);
         if (employee == null) {
             req.setAttribute("error", "Identifiants invalides.");
             req.getRequestDispatcher("/WEB-INF/jsp/auth/login.jsp").forward(req, resp);
@@ -63,7 +63,6 @@ public class AuthServlet extends HttpServlet {
     }
 
     private void handleSignup(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
@@ -75,7 +74,7 @@ public class AuthServlet extends HttpServlet {
         }
 
         try {
-            Employee employee = authService.signup(username, email, password);
+            Employee employee = authService.signup(email, password);
             HttpSession session = req.getSession(true);
             session.setAttribute("currentUser", employee);
             resp.sendRedirect(req.getContextPath() + "/home");

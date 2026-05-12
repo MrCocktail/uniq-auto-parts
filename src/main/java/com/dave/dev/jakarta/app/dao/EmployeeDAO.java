@@ -25,16 +25,7 @@ public class EmployeeDAO {
     }
 
     public Employee findByUsername(String username) {
-        EntityManager em = JPAUtil.getEntityManager();
-        try {
-            return em.createQuery("SELECT e FROM Employee e WHERE e.username = :username", Employee.class)
-                    .setParameter("username", username)
-                    .getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        } finally {
-            em.close();
-        }
+        return null;
     }
 
     public Employee findByEmail(String email) {

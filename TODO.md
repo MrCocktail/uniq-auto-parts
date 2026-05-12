@@ -26,17 +26,17 @@
 - [x] Lancer `npm run tailwind:build`.
 
 ## Phase 4 - Business Features (Next)
-- [ ] Implementer CRUD Piece (DAO + Service + Servlet + JSPs list/create/edit).
-- [ ] Implementer gestion Stock (ajustement + validation quantites).
-- [ ] Implementer CRUD Client.
-- [ ] Implementer creation CommandeClient avec lignes et calcul montant.
-- [ ] Implementer update statut commande.
+- [x] Implementer CRUD Piece (DAO + Service + Servlet + JSPs list/create/edit).
+- [x] Implementer gestion Stock (ajustement + validation quantites).
+- [x] Implementer CRUD Client.
+- [x] Implementer creation CommandeClient avec lignes et calcul montant.
+- [x] Implementer update statut commande.
 
 ## Phase 5 - Quality
-- [ ] Ajouter validations serveur detaillees (prix >= 0, email valide, reference unique).
-- [ ] Ajouter gestion erreurs centralisee.
-- [ ] Ajouter tests unitaires services critiques.
-- [ ] Ajouter donnees seed admin initial pour premier login.
+- [x] Ajouter validations serveur detaillees (prix >= 0, email valide, reference unique).
+- [x] Ajouter gestion erreurs centralisee.
+- [x] Ajouter tests unitaires services critiques.
+- [x] Ajouter donnees seed admin initial pour premier login.
 
 ## Quick Run
 1. Configurer MySQL et creer DB `autoparts`.

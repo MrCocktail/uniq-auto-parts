@@ -4,7 +4,9 @@ import com.dave.dev.jakarta.app.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +16,10 @@ public class DashboardService {
         EntityManager em = JPAUtil.getEntityManager();
         try {
             long totalPieces = asLong(em.createNativeQuery("SELECT COUNT(*) FROM Pieces").getSingleResult());
-            long totalClients = asLong(em.createNativeQuery("SELECT COUNT(*) FROM Client").getSingleResult());
-            long totalVentes = asLong(em.createNativeQuery("SELECT COUNT(*) FROM Ventes").getSingleResult());
+                long totalClients = asLong(em.createNativeQuery("SELECT COUNT(*) FROM clients").getSingleResult());
+                long totalVentes = asLong(em.createNativeQuery("SELECT COUNT(*) FROM ventes").getSingleResult());
             BigDecimal montantTotal = asBigDecimal(
-                    em.createNativeQuery("SELECT COALESCE(SUM(Montant), 0) FROM Ventes").getSingleResult()
+                    em.createNativeQuery("SELECT COALESCE(SUM(Montant), 0) FROM ventes").getSingleResult()
             );
             return new DashboardStats(totalPieces, totalClients, totalVentes, montantTotal);
         } finally {
@@ -60,13 +62,13 @@ public class DashboardService {
             @SuppressWarnings("unchecked")
             List<Object[]> rows = em.createNativeQuery("""
                     SELECT v.RefVente,
-                           CONCAT(c.Prenom, ' ', c.Nom) AS clientNom,
-                           CONCAT(e.Prenom, ' ', e.Nom) AS employeNom,
+                          CONCAT_WS(' ', c.prenom, c.nom) AS clientNom,
+                          CONCAT_WS(' ', e.Prenom, e.Nom) AS employeNom,
                            v.Montant,
                            v.DateVente
-                    FROM Ventes v
-                    JOIN Client c ON c.RefClient = v.RefClient
-                    JOIN Employe e ON e.RefEmploye = v.RefEmploye
+                      FROM ventes v
+                      LEFT JOIN clients c ON c.id = v.RefClient
+                      LEFT JOIN employe e ON e.RefEmploye = v.RefEmploye
                     ORDER BY v.DateVente DESC, v.RefVente DESC
                     LIMIT ?
                     """)
@@ -114,6 +116,12 @@ public class DashboardService {
     private LocalDate asLocalDate(Object value) {
         if (value instanceof Date date) {
             return date.toLocalDate();
+        }
+        if (value instanceof Timestamp timestamp) {
+            return timestamp.toLocalDateTime().toLocalDate();
+        }
+        if (value instanceof LocalDateTime localDateTime) {
+            return localDateTime.toLocalDate();
         }
         if (value instanceof LocalDate localDate) {
             return localDate;

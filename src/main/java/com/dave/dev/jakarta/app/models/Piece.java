@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pieces")
@@ -16,31 +15,34 @@ public class Piece {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "RefPiece")
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(name = "NomPieces", nullable = false, length = 150)
     private String nom;
-
-    @Column(nullable = false, unique = true, length = 80)
-    private String reference;
 
     @Column(length = 500)
     private String description;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "P_Achat", precision = 10, scale = 2)
+    private BigDecimal prixAchat;
+
+    @Column(name = "P_Vente", nullable = false, precision = 10, scale = 2)
     private BigDecimal prixUnitaire;
+
+    @Column(name = "Quantite")
+    private Integer quantite;
+
+    @Column(name = "Provenance", length = 50)
+    private String provenance;
 
     @Column(length = 500)
     private String imageUrl;
-
-    @Column(nullable = false)
-    private LocalDateTime dateCreation;
 
     @OneToOne(mappedBy = "piece")
     private Stock stock;
 
     public Piece() {
-        this.dateCreation = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -59,20 +61,20 @@ public class Piece {
         this.nom = nom;
     }
 
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getPrixAchat() {
+        return prixAchat;
+    }
+
+    public void setPrixAchat(BigDecimal prixAchat) {
+        this.prixAchat = prixAchat;
     }
 
     public BigDecimal getPrixUnitaire() {
@@ -91,12 +93,20 @@ public class Piece {
         this.imageUrl = imageUrl;
     }
 
-    public LocalDateTime getDateCreation() {
-        return dateCreation;
+    public Integer getQuantite() {
+        return quantite;
     }
 
-    public void setDateCreation(LocalDateTime dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
+    }
+
+    public String getProvenance() {
+        return provenance;
+    }
+
+    public void setProvenance(String provenance) {
+        this.provenance = provenance;
     }
 
     public Stock getStock() {

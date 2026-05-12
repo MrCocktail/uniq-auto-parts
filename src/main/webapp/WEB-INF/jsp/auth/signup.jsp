@@ -21,10 +21,6 @@
 
     <form method="post" action="${pageContext.request.contextPath}/auth/signup" class="space-y-4">
         <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1" for="username">Nom d'utilisateur</label>
-            <input id="username" name="username" required class="w-full rounded-lg border border-slate-300 px-3 py-2" type="text">
-        </div>
-        <div>
             <label class="block text-sm font-medium text-slate-700 mb-1" for="email">Email</label>
             <input id="email" name="email" required class="w-full rounded-lg border border-slate-300 px-3 py-2" type="email">
         </div>

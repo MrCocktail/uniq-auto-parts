@@ -18,25 +18,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "customer_orders")
+@Table(name = "ventes")
 public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "RefVente")
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "RefClient")
     private Client client;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "RefEmploye")
+    private Employee employe;
+
+    @Column(name = "DateVente", nullable = false)
     private LocalDateTime dateCommande;
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(name = "Montant", nullable = false, precision = 12, scale = 2)
     private BigDecimal montantTotal;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(name = "statut", nullable = false, length = 20)
     private OrderStatus statut;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -68,6 +73,14 @@ public class CustomerOrder {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Employee getEmploye() {
+        return employe;
+    }
+
+    public void setEmploye(Employee employe) {
+        this.employe = employe;
     }
 
     public LocalDateTime getDateCommande() {
